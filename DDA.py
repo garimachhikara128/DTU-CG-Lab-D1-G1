@@ -37,10 +37,3 @@ plt.xlabel("X Axis")
 plt.ylabel("Y Axis")
 plt.title("DDA Algorithm")
 plt.show()
-
-
-
-
-
-
-
