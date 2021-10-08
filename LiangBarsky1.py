@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 
 xwmin = int(input("X W Min : "))
 ywmin = int(input("Y W Min : "))
@@ -8,6 +9,27 @@ x1 = int(input("x1 : "))
 y1 = int(input("y1 : "))
 x2 = int(input("x2 : "))
 y2 = int(input("y2 : "))
+
+plt.style.use('seaborn')
+f, axis = plt.subplots(1,2,figsize=(10,5))
+
+def polygon(c, a) :
+
+    xl = [xwmin, xwmax, xwmax, xwmin, xwmin]
+    yl = [ywmin, ywmin, ywmax, ywmax, ywmin]
+
+    a.plot(xl,yl, color = c)
+
+def line(c, a , x1, y1 , x2, y2) :
+
+    xl = [x1, x2]
+    yl = [y1, y2]
+
+    a.plot(xl, yl, color = c)
+
+# Draw the original plot before starting the process
+polygon("red",axis[0])
+line("blue",axis[0],x1,y1,x2,y2)
 
 dx = x2- x1
 dy = y2 - y1
@@ -70,7 +92,25 @@ if flag :
         somethingInside = False
 
 
+# draw a clipping window in 2nd subplot
+polygon("red",axis[1])
+
 if somethingInside :
     print("Line is Visible from %.2f,%.2f to %.2f,%.2f" % (x1_,y1_,x2_,y2_))
+
+    # if something is inside the window then only show it on the plot
+    line("blue",axis[1], x1_, y1_, x2_,y2_)
+
 else :
     print("Line is outside the window")
+
+# set the limits of the subplot
+axis[0].set_xlim([0,100])
+axis[0].set_ylim([0,100])
+axis[1].set_xlim([0,100])
+axis[1].set_ylim([0,100])
+
+axis[0].set_title("Before Clipping")
+axis[1].set_title("After Clipping")
+
+plt.show()
